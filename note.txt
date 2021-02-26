@@ -1,0 +1,13 @@
+npx sequelize-cli init -command provides nice starter structure.
+
+Create model with script:
+npx sequelize-cli model:generate --name User --attributes userName:string,name:string,email:string,address:string,phone:string,isAdmin:boolean
+
+npx sequelize-cli db:migrate
+
+npx sequelize-cli seed:generate --name demo-user
+
+npx sequelize-cli db:seed:all
+
+
+Packages used are listed in packages.json file.
