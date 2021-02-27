@@ -1,19 +1,9 @@
-const express = require('express')
-const app = express()
+const app = require('./app')
+const http = require('http')
+const config = require('./utils/config')
 
-const { User, Category, Item, Order, OrderRow } = require('./models')
+const server = http.createServer(app)
 
-app.use(express.json())
-
-app.get('/category', async (req, res, next) => {
-    try {
-        const c = await Category.findAll()
-        console.log(c)
-        res.json(c)
-    } catch (err) {
-        console.log(err)
-        res.status(500).json(err)
-    }
+server.listen(config.PORT, () => {
+    console.log(`Server running on port ${config.PORT}`)
 })
-
-app.listen(5000, () => console.log('server listening on port 5000'))
