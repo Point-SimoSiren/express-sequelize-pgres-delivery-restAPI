@@ -10,14 +10,28 @@ module.exports = (sequelize, DataTypes) => {
     }
     OrderRow.init(
         {
-            id: DataTypes.DataTypes.INTEGER,
-            title: DataTypes.STRING,
-            channel_id: {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+            },
+            order_id: {
                 type: DataTypes.INTEGER,
                 references: {
-                    model: 'Channel',
+                    model: 'Order',
                     key: 'id',
                 },
+            },
+            item_id: {
+                type: DataTypes.INTEGER,
+                references: {
+                    model: 'Item',
+                    key: 'id',
+                },
+            },
+            amount: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
             },
             createdAt: {
                 type: DataTypes.DATE,
@@ -32,8 +46,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             sequelize,
-            modelName: 'Video',
-            tableName: 'video',
+            modelName: 'OrderRow',
+            tableName: 'orderRow',
             freezeTableName: true,
         }
     );

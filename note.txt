@@ -5,7 +5,7 @@ npx sequelize-cli model:generate --name User --attributes userName:string,name:s
 
 npx sequelize-cli db:migrate
 
-npx sequelize-cli seed:generate --name demo-user
+npx sequelize-cli seed:generate --name all
 
 npx sequelize-cli db:seed:all
 

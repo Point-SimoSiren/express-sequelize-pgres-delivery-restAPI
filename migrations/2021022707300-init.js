@@ -40,12 +40,12 @@ module.exports = {
         allowNull: false,
       },
       created_at: {
-        type: Sequelize.NOW,
+        type: Sequelize.DATE,
         allowNull: false,
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.NOW,
+        type: Sequelize.DATE,
       },
     });
 
@@ -66,11 +66,11 @@ module.exports = {
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.NOW,
+        type: Sequelize.DATE,
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.NOW,
+        type: Sequelize.DATE,
       },
     });
 
@@ -107,11 +107,11 @@ module.exports = {
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.NOW,
+        type: Sequelize.DATE,
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.NOW,
+        type: Sequelize.DATE,
       },
     });
 
@@ -149,11 +149,11 @@ module.exports = {
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.NOW,
+        type: Sequelize.DATE,
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.NOW,
+        type: Sequelize.DATE,
       },
     });
 
@@ -186,11 +186,11 @@ module.exports = {
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.NOW,
+        type: Sequelize.DATE,
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.NOW,
+        type: Sequelize.DATE,
       },
     });
 

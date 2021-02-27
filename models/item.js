@@ -9,7 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     }
     Item.init(
         {
-            id: DataTypes.DataTypes.INTEGER,
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+            },
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,

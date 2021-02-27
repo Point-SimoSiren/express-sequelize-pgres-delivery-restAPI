@@ -9,7 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     }
     Order.init(
         {
-            id: DataTypes.DataTypes.INTEGER,
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+            },
             user_id: {
                 type: DataTypes.INTEGER,
                 references: {

@@ -1,21 +1,21 @@
 {
   "development": {
     "username": "postgres",
-    "password": "Fullstack7777!",
-    "database": "sequelize-training",
+    "password": "fake_one",
+    "database": "delivery",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "Fullstack7777!",
+    "password": "xxx",
     "database": "sequelize-training",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
-    "password": "Fullstack7777!",
+    "password": "xxx",
     "database": "sequelize-training",
     "host": "127.0.0.1",
     "dialect": "postgres"
