@@ -1,20 +1,16 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Video extends Model {
-        /**
-         * Helper method for defining associations.
-         * This method is not a part of Sequelize lifecycle.
-         * The `models/index` file will call this method automatically.
-         */
+    class OrderRow extends Model {
+
         static associate(models) {
-            // define association here
-            this.channel_id = this.belongsTo(models.Channel, { foreignKey: 'channel_id' });
+            this.order_id = this.belongsTo(models.Order, { foreignKey: 'order_id' });
+            this.item_id = this.belongsTo(models.Item, { foreignKey: 'item_id' });
         }
     }
-    Video.init(
+    OrderRow.init(
         {
-            // id: DataTypes.DataTypes.INTEGER,
+            id: DataTypes.DataTypes.INTEGER,
             title: DataTypes.STRING,
             channel_id: {
                 type: DataTypes.INTEGER,
@@ -41,5 +37,5 @@ module.exports = (sequelize, DataTypes) => {
             freezeTableName: true,
         }
     );
-    return Video;
+    return OrderRow;
 };

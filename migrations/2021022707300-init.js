@@ -40,13 +40,12 @@ module.exports = {
         allowNull: false,
       },
       created_at: {
-        type: Sequelize.DATE,
+        type: Sequelize.NOW,
         allowNull: false,
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-        // defaultValue: Sequelize.NOW,
+        type: Sequelize.NOW,
       },
     });
 
@@ -67,13 +66,11 @@ module.exports = {
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-        // defaultValue: Sequelize.NOW,
+        type: Sequelize.NOW,
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-        // defaultValue: Sequelize.NOW,
+        type: Sequelize.NOW,
       },
     });
 
@@ -96,28 +93,109 @@ module.exports = {
         type: Sequelize.DECIMAL,
         allowNull: false,
       },
+      active: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
       caterogy_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'channel',
+          model: 'category',
           key: 'id',
           allowNull: false,
         },
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-        // defaultValue: Sequelize.NOW,
+        type: Sequelize.NOW,
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-        // defaultValue: Sequelize.NOW,
+        type: Sequelize.NOW,
       },
     });
+
+    await queryInterface.createTable('order', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'user',
+          key: 'id',
+          allowNull: false,
+        },
+      },
+      delivery_date: {
+        type: Sequelize.DATE,
+      },
+      delivered: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
+      paid: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
+      total_price: {
+        type: Sequelize.DECIMAL,
+      },
+      notes: {
+        type: Sequelize.STRING,
+      },
+      created_at: {
+        allowNull: false,
+        type: Sequelize.NOW,
+      },
+      updated_at: {
+        allowNull: false,
+        type: Sequelize.NOW,
+      },
+    });
+
+    await queryInterface.createTable('orderRow', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      order_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'order',
+          key: 'id',
+          allowNull: false,
+        },
+      },
+      item_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'item',
+          key: 'id',
+          allowNull: false,
+        },
+      },
+      amount: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      created_at: {
+        allowNull: false,
+        type: Sequelize.NOW,
+      },
+      updated_at: {
+        allowNull: false,
+        type: Sequelize.NOW,
+      },
+    });
+
   },
   down: async (queryInterface, Sequelize) => {
-    // we can do this because it is the first migration
     await queryInterface.dropAllTables();
   },
 };
