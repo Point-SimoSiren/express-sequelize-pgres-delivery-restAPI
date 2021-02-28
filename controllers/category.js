@@ -1,5 +1,4 @@
 const categoryRouter = require('express').Router()
-//const Category = require('../models/category')
 const { Category } = require('../models')
 
 //const jwt = require('jsonwebtoken')

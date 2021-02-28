@@ -97,13 +97,23 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      caterogy_id: {
+      category_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'category',
           key: 'id',
           allowNull: false,
         },
+      },
+      manufacturer: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      description: {
+        type: Sequelize.STRING,
+      },
+      imagelink: {
+        type: Sequelize.STRING,
       },
       created_at: {
         allowNull: false,
