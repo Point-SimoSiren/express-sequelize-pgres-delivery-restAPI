@@ -1,21 +1,21 @@
 {
   "development": {
     "username": "postgres",
-    "password": "xzxzxzz",
+    "password": "xzxxxxxzxzz",
     "database": "delivery",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "xxzzx",
+    "password": "xxzxxxxzx",
     "database": "sequelize-training",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
-    "password": "xxx",
+    "password": "xxxzzxxxzxx",
     "database": "sequelize-training",
     "host": "127.0.0.1",
     "dialect": "postgres"
