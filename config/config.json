@@ -8,7 +8,7 @@
   },
   "test": {
     "username": "postgres",
-    "password": "xxx",
+    "password": "xxzzx",
     "database": "sequelize-training",
     "host": "127.0.0.1",
     "dialect": "postgres"
