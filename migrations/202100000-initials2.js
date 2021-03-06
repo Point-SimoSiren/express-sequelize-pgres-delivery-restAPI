@@ -2,11 +2,11 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('user', {
-      id: {
+      user_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
       },
       username: {
         type: Sequelize.STRING,
@@ -50,11 +50,11 @@ module.exports = {
     });
 
     await queryInterface.createTable('category', {
-      id: {
+      category_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
       },
       name: {
         type: Sequelize.STRING,
@@ -75,11 +75,11 @@ module.exports = {
     });
 
     await queryInterface.createTable('item', {
-      id: {
+      item_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
       },
       name: {
         type: Sequelize.STRING,
@@ -98,10 +98,10 @@ module.exports = {
         allowNull: false,
       },
       category_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model: 'category',
-          key: 'id',
+          key: 'category_id',
           allowNull: false,
         },
       },
@@ -126,17 +126,17 @@ module.exports = {
     });
 
     await queryInterface.createTable('order', {
-      id: {
+      order_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
       },
       user_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model: 'user',
-          key: 'id',
+          key: 'user_id',
           allowNull: false,
         },
       },
@@ -167,26 +167,26 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('orderRow', {
-      id: {
+    await queryInterface.createTable('orderrow', {
+      orderrow_id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
       },
-      order_id: {
-        type: Sequelize.INTEGER,
+      item_id: {
+        type: Sequelize.UUID,
         references: {
-          model: 'order',
-          key: 'id',
+          model: 'item',
+          key: 'item_id',
           allowNull: false,
         },
       },
-      item_id: {
-        type: Sequelize.INTEGER,
+      order_id: {
+        type: Sequelize.UUID,
         references: {
-          model: 'item',
-          key: 'id',
+          model: 'order',
+          key: 'order_id',
           allowNull: false,
         },
       },

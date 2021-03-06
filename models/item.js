@@ -1,5 +1,5 @@
 'use strict';
-const { Model } = require('sequelize');
+const { Model, Sequelize } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Item extends Model {
 
@@ -9,8 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     }
     Item.init(
         {
-            id: {
-                type: DataTypes.INTEGER,
+            item_id: {
+                type: DataTypes.UUID,
+                defaultValue: Sequelize.UUIDV4,
                 allowNull: false,
                 primaryKey: true,
             },
@@ -40,10 +41,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
             },
             category_id: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.UUID,
                 references: {
                     model: 'Category',
-                    key: 'id',
+                    key: 'category_id',
                 },
             },
             createdAt: {
