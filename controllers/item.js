@@ -1,32 +1,28 @@
 const itemRouter = require('express').Router()
 const { Item, Category } = require('../models')
 
+// GET ALL ITEMS
 itemRouter.get('/', async (req, res) => {
 
     const items = await Item.findAll()
     res.json(items)
 })
 
+// ITEMS PER CATEGORY_ID
 itemRouter.get('/ct/:ctid', async (req, res) => {
 
     const itemsByCategory = await Item.findAll({
-        include: {
-            model: Category,
-            required: true, //for inner join
-            where: {
-                id: req.params.ctid
-            }
+        where: {
+            category_id: req.params.ctid
         }
-    });
+    })
 
     return res.json(itemsByCategory)
 })
-module.exports = itemRouter
 
-/*
-// GET ONE PRODUCT BY ID
 
-itemsRouter.get('/:id', async (request, response, next) => {
+// GET ONE ITEM BY ITEM_ID
+itemRouter.get('/:id', async (request, response) => {
     try {
         const item = await Item.findById(request.params.id)
         if (item) {
@@ -35,9 +31,13 @@ itemsRouter.get('/:id', async (request, response, next) => {
             response.status(404).end()
         }
     } catch (exception) {
-        next(exception)
+        res.json(exception)
     }
 })
+
+module.exports = itemRouter
+
+/*
 
 // TOKEN PROCESSOR FUNCTION
 
@@ -80,4 +80,4 @@ itemsRouter.post('/', async (request, response, next) => {
         next(exception)
     }
 })
-*/
+    */

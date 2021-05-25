@@ -6,14 +6,33 @@ const { Category } = require('../models')
 // GET ALL PRODUCT CATEGORIES
 
 categoryRouter.get('/', async (req, res) => {
-
     const c = await Category.findAll()
     console.log(c)
     res.json(c)
 })
 
+// ADD NEW CATEGORY
+
+categoryRouter.post('/', async (request, response) => {
+    const body = request.body
+
+    try {
+        const newCategory = new Category({
+            name: body.name,
+            description: body.description
+        })
+
+        const savedCategory = await newCategory.save()
+        response.json(savedCategory.toJSON())
+    } catch (ex) {
+        response.json(ex)
+    }
+})
+
 module.exports = categoryRouter
+
 /*
+
 // TOKEN PROCESSOR FUNCTION
 
 const getTokenFrom = request => {
@@ -26,7 +45,7 @@ const getTokenFrom = request => {
 
 // ADMIN FEATURE: POST NEW PRODUCT CATEGORY
 
-categoriesRouter.post('/', async (request, response, next) => {
+categoryRouter.post('/', async (request, response, next) => {
     const body = request.body
 
     const token = getTokenFrom(request)
@@ -56,7 +75,19 @@ categoriesRouter.post('/', async (request, response, next) => {
 
 // ADMIN FEATURE: DELETE PRODUCT CATEGORY
 
-categoriesRouter.delete('/:id', async (request, response, next) => {
+categoryRouter.delete('/:id', async (req, res) => {
+
+    await Category.destroy({
+        where: {
+            category_id: id
+        }
+    })
+    res.status(204).end()
+
+})
+
+/*
+categoryRouter.delete('/:id', async (request, response, next) => {
     const token = getTokenFrom(request)
     try {
         const decodedToken = jwt.verify(token, process.env.SECRET)
@@ -68,7 +99,8 @@ categoriesRouter.delete('/:id', async (request, response, next) => {
     }
 
     try {
-        await Category.findByIdAndRemove(request.params.id)
+        const category = Category.findByPk(id)
+        category.destroy()
         response.status(204).end()
     } catch (exception) {
         next(exception)
@@ -78,7 +110,7 @@ categoriesRouter.delete('/:id', async (request, response, next) => {
 
 // ADMIN FEATURE: UPDATE PRODUCT CATEGORY
 
-categoriesRouter.put('/:id', async (request, response, next) => {
+categoryRouter.put('/:id', async (request, response, next) => {
     const body = await request.body
 
     const token = getTokenFrom(request)
@@ -108,5 +140,6 @@ categoriesRouter.put('/:id', async (request, response, next) => {
         next(exception)
     }
 })
-*/
 
+
+*/
