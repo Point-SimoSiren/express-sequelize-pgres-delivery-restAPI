@@ -7,7 +7,6 @@ const { Category } = require('../models')
 
 categoryRouter.get('/', async (req, res) => {
     const c = await Category.findAll()
-    console.log(c)
     res.json(c)
 })
 
@@ -27,6 +26,24 @@ categoryRouter.post('/', async (request, response) => {
     } catch (ex) {
         response.json(ex)
     }
+})
+
+// DELETE CATEGORY
+
+categoryRouter.delete('/:id', async (req, res) => {
+
+    try {
+        await Category.destroy({
+            where: {
+                category_id: req.params.id
+            }
+        })
+        res.status(204).end()
+    }
+    catch (ex) {
+        response.json(ex)
+    }
+
 })
 
 module.exports = categoryRouter
@@ -75,16 +92,6 @@ categoryRouter.post('/', async (request, response, next) => {
 
 // ADMIN FEATURE: DELETE PRODUCT CATEGORY
 
-categoryRouter.delete('/:id', async (req, res) => {
-
-    await Category.destroy({
-        where: {
-            category_id: id
-        }
-    })
-    res.status(204).end()
-
-})
 
 /*
 categoryRouter.delete('/:id', async (request, response, next) => {

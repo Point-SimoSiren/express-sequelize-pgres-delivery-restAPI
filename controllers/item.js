@@ -35,6 +35,29 @@ itemRouter.get('/:id', async (request, response) => {
     }
 })
 
+// ADMIN FEATURE: ADD NEW PRODUCT ITEM
+itemRouter.post('/', async (request, response) => {
+    const body = request.body
+
+    try {
+        const newItem = new Item({
+            name: body.name,
+            package: body.package,
+            price: body.price,
+            active: body.active,
+            manufacturer: body.manufacturer,
+            description: body.description,
+            category: body.categoryId
+
+        })
+
+        const savedItem = await newItem.save()
+        response.json(savedItem.toJSON())
+    } catch (exception) {
+        res.json(exception)
+    }
+})
+
 module.exports = itemRouter
 
 /*
