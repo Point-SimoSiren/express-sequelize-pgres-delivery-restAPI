@@ -46,6 +46,26 @@ categoryRouter.delete('/:id', async (req, res) => {
 
 })
 
+// ADMIN FEATURE: UPDATE PRODUCT CATEGORY
+
+categoryRouter.put('/:id', async (request, response) => {
+
+    const body = await request.body
+    const id = await request.params.id
+
+    const [affectedRows] = await Category.update({
+        name: body.name,
+        description: body.description
+    }, {
+        where: { category_id: id },
+        returning: true, // needed for affectedRows to be populated
+        plain: true // makes sure that the returned instances are just plain objects
+    })
+
+    response.json(affectedRows.toJSON)
+
+})
+
 module.exports = categoryRouter
 
 /*

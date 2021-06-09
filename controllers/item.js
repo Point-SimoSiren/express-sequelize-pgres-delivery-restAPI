@@ -1,5 +1,5 @@
 const itemRouter = require('express').Router()
-const { Item, Category } = require('../models')
+const { Item } = require('../models')
 
 // GET ALL ITEMS
 itemRouter.get('/', async (req, res) => {
@@ -54,8 +54,33 @@ itemRouter.post('/', async (request, response) => {
         const savedItem = await newItem.save()
         response.json(savedItem.toJSON())
     } catch (exception) {
-        res.json(exception)
+        responce.json(exception)
     }
+})
+
+itemRouter.put('/:id', async (request, response) => {
+
+    const body = request.body
+    const id = request.params.id
+
+    const [affectedRows] = await Item.update({
+        name: body.name,
+        package: body.package,
+        price: body.price,
+        manufacturer: body.manufacturer,
+        description: body.description,
+        active: body.active,
+        imagelink: body.imagelink,
+        category_id: body.category_id
+
+    }, {
+        where: { item_id: id },
+        returning: true, // needed for affectedRows to be populated
+        plain: true // only plain objects
+    })
+
+    response.json(affectedRows.toJSON)
+
 })
 
 module.exports = itemRouter
