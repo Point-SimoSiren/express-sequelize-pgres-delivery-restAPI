@@ -31,6 +31,33 @@ userRouter.post('/', async (request, response) => {
     }
 })
 
+// ADMIN FEATURE: GET ALL USERS
+
+userRouter.get('/', async (req, res) => {
+    const users = await User.findAll()
+    res.json(users)
+})
+
+// DELETE USER
+
+userRouter.delete('/:id', async (req, res) => {
+
+    try {
+        await Item.destroy({
+            where: {
+                user_id: req.params.id
+            }
+        })
+        res.status(204).end()
+    }
+    catch (ex) {
+        response.json(ex)
+    }
+
+})
+
+module.exports = userRouter
+
 /*
 
 // TOKEN PROCESSOR FUNCION
@@ -43,17 +70,7 @@ const getTokenFrom = request => {
     return null
 }
 
-// ADMIN FEATURE: GET ALL USERS
 
-userRouter.get('/', async (req, res) => {
-    try {
-        const u = await User.findAll()
-        console.log(u)
-        res.json(u)
-    } catch (exception) {
-        console.log(exception)
-    }
-})
 
 
 const token = getTokenFrom(request)
@@ -137,4 +154,3 @@ userRouter.put('/:id', async (request, response) => {
 
 */
 
-module.exports = userRouter

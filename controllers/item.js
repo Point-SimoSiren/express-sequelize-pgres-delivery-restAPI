@@ -60,10 +60,10 @@ itemRouter.post('/', async (request, response) => {
 
 itemRouter.put('/:id', async (request, response) => {
 
-    const body = request.body
-    const id = request.params.id
+    const body = await request.body
+    const id = await request.params.id
 
-    const [affectedRows] = await Item.update({
+    const updated = await Item.update({
         name: body.name,
         package: body.package,
         price: body.price,
@@ -79,7 +79,24 @@ itemRouter.put('/:id', async (request, response) => {
         plain: true // only plain objects
     })
 
-    response.json(affectedRows.toJSON)
+    response.json(updated)
+})
+
+// DELETE ITEM
+
+itemRouter.delete('/:id', async (req, res) => {
+
+    try {
+        await Item.destroy({
+            where: {
+                item_id: req.params.id
+            }
+        })
+        res.status(204).end()
+    }
+    catch (ex) {
+        response.json(ex)
+    }
 
 })
 

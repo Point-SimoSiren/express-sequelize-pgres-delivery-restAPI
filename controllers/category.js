@@ -50,10 +50,10 @@ categoryRouter.delete('/:id', async (req, res) => {
 
 categoryRouter.put('/:id', async (request, response) => {
 
-    const body = await request.body
-    const id = await request.params.id
+    const body = request.body
+    const id = request.params.id
 
-    const [affectedRows] = await Category.update({
+    const updated = await Category.update({
         name: body.name,
         description: body.description
     }, {
@@ -62,7 +62,7 @@ categoryRouter.put('/:id', async (request, response) => {
         plain: true // makes sure that the returned instances are just plain objects
     })
 
-    response.json(affectedRows.toJSON)
+    response.json(updated)
 
 })
 
