@@ -4,14 +4,26 @@ const { Category } = require('../models')
 //const jwt = require('jsonwebtoken')
 
 // GET ALL PRODUCT CATEGORIES
-
 categoryRouter.get('/', async (req, res) => {
     const c = await Category.findAll()
     res.json(c)
 })
 
-// ADD NEW CATEGORY
+// GET ONE CATEGORY BY CATEGORY_ID
+categoryRouter.get('/:id', async (request, response) => {
+    try {
+        const category = await Category.findByPk(request.params.id)
+        if (category) {
+            response.json(category)
+        } else {
+            response.status(404).end()
+        }
+    } catch (exception) {
+        response.json(exception)
+    }
+})
 
+// ADD NEW CATEGORY
 categoryRouter.post('/', async (request, response) => {
     const body = request.body
 
@@ -29,7 +41,6 @@ categoryRouter.post('/', async (request, response) => {
 })
 
 // DELETE CATEGORY
-
 categoryRouter.delete('/:id', async (req, res) => {
 
     try {
@@ -43,11 +54,9 @@ categoryRouter.delete('/:id', async (req, res) => {
     catch (ex) {
         response.json(ex)
     }
-
 })
 
 // ADMIN FEATURE: UPDATE PRODUCT CATEGORY
-
 categoryRouter.put('/:id', async (request, response) => {
 
     const body = request.body
@@ -63,7 +72,6 @@ categoryRouter.put('/:id', async (request, response) => {
     })
 
     response.json(updated)
-
 })
 
 module.exports = categoryRouter

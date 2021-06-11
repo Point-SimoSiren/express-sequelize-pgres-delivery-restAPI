@@ -41,7 +41,6 @@ userRouter.get('/', async (req, res) => {
 // DELETE USER
 
 userRouter.delete('/:id', async (req, res) => {
-
     try {
         await Item.destroy({
             where: {
@@ -53,7 +52,6 @@ userRouter.delete('/:id', async (req, res) => {
     catch (ex) {
         response.json(ex)
     }
-
 })
 
 module.exports = userRouter

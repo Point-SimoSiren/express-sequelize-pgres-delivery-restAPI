@@ -10,28 +10,31 @@ itemRouter.get('/', async (req, res) => {
 
 // ITEMS PER CATEGORY_ID
 itemRouter.get('/ct/:ctid', async (req, res) => {
+    try {
+        const itemsByCategory = await Item.findAll({
+            where: {
+                category_id: req.params.ctid
+            }
+        })
 
-    const itemsByCategory = await Item.findAll({
-        where: {
-            category_id: req.params.ctid
-        }
-    })
-
-    return res.json(itemsByCategory)
+        return res.json(itemsByCategory)
+    }
+    catch (exception) {
+        response.json(exception)
+    }
 })
-
 
 // GET ONE ITEM BY ITEM_ID
 itemRouter.get('/:id', async (request, response) => {
     try {
-        const item = await Item.findById(request.params.id)
+        const item = await Item.findByPk(request.params.id)
         if (item) {
-            response.json(item.toJSON())
+            response.json(item)
         } else {
             response.status(404).end()
         }
     } catch (exception) {
-        res.json(exception)
+        response.json(exception)
     }
 })
 
@@ -48,7 +51,6 @@ itemRouter.post('/', async (request, response) => {
             manufacturer: body.manufacturer,
             description: body.description,
             category: body.categoryId
-
         })
 
         const savedItem = await newItem.save()
@@ -58,8 +60,8 @@ itemRouter.post('/', async (request, response) => {
     }
 })
 
+// UPDATE ITEM
 itemRouter.put('/:id', async (request, response) => {
-
     const body = await request.body
     const id = await request.params.id
 
@@ -72,7 +74,6 @@ itemRouter.put('/:id', async (request, response) => {
         active: body.active,
         imagelink: body.imagelink,
         category_id: body.category_id
-
     }, {
         where: { item_id: id },
         returning: true, // needed for affectedRows to be populated
@@ -83,9 +84,7 @@ itemRouter.put('/:id', async (request, response) => {
 })
 
 // DELETE ITEM
-
 itemRouter.delete('/:id', async (req, res) => {
-
     try {
         await Item.destroy({
             where: {
@@ -97,7 +96,6 @@ itemRouter.delete('/:id', async (req, res) => {
     catch (ex) {
         response.json(ex)
     }
-
 })
 
 module.exports = itemRouter
