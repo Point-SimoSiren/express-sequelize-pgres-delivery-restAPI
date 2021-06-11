@@ -4,7 +4,6 @@ const { User } = require('../models')
 const jwt = require('jsonwebtoken')
 
 // SELF-REGISTER ENDPOINT
-
 userRouter.post('/', async (request, response) => {
     try {
         const body = request.body
@@ -32,14 +31,28 @@ userRouter.post('/', async (request, response) => {
 })
 
 // ADMIN FEATURE: GET ALL USERS
-
 userRouter.get('/', async (req, res) => {
     const users = await User.findAll()
     res.json(users)
 })
 
-// DELETE USER
+// ADMIN FEATURE: GET ONE USER BY USER_ID
+userRouter.get('/:id', async (request, response) => {
+    const id = request.params.id
+    try {
+        const user = await User.findByPk(id)
+        if (user) {
 
+            response.json(user)
+        } else {
+            response.status(404).end()
+        }
+    } catch (exception) {
+        response.json(exception)
+    }
+})
+
+// ADMIN FEATURE: DELETE USER
 userRouter.delete('/:id', async (req, res) => {
     try {
         await Item.destroy({
@@ -52,6 +65,28 @@ userRouter.delete('/:id', async (req, res) => {
     catch (ex) {
         response.json(ex)
     }
+})
+
+// ADMIN FEATURE: UPDATE USER
+userRouter.put('/:id', async (request, response) => {
+    const body = await request.body
+    const id = await request.params.id
+
+    const updated = await User.update({
+        username: body.username,
+        name: body.name,
+        address: body.address,
+        phone: body.phone,
+        email: body.email,
+        admin: body.admin,
+        passwordhash: body.passwordhash
+    }, {
+        where: { user_id: id },
+        returning: true, // needed for affectedRows to be populated
+        plain: true // only plain objects
+    })
+
+    response.json(updated)
 })
 
 module.exports = userRouter
