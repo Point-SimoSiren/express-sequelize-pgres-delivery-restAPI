@@ -9,19 +9,22 @@ orderRowRouter.get('/', async (req, res) => {
     res.json(orderRows)
 })
 
-// GET ORDER-ROWS BY ORDER_ID
+// GET ORDER-ROWS BY ORDER_ID WITH INNER JOIN TO ITEMS
 orderRowRouter.get('/order/:orderid', async (req, res) => {
     try {
         const rowsByOrder = await Orderrow.findAll({
             where: {
                 order_id: req.params.orderid
-            }
+            },
+            include: [{
+                model: Item,
+                require: true
+            }]
         })
-
         return res.json(rowsByOrder)
     }
     catch (exception) {
-        response.json(exception)
+        res.json(exception)
     }
 })
 
