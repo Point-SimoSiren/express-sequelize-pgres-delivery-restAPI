@@ -9,17 +9,21 @@ orderRowRouter.get('/', async (req, res) => {
     res.json(orderRows)
 })
 
-// GET ORDER-ROWS BY ORDER_ID WITH INNER JOIN TO ITEMS
+/* TO DO NEXT RAW:
+GET ORDER-ROWS BY ORDER_ID PLUS SHOW ITEM´S PRODUCTNAME
+SELECT * FROM orderrow LEFT JOIN item
+ON item.item_id = orderrow.item_id WHERE order_id = '9fb9d681-7555-4e6c-a92b-921aa008fc19'
+*/
+
+
+/*
+// GET ORDER-ROWS BY ORDER_ID
 orderRowRouter.get('/order/:orderid', async (req, res) => {
     try {
         const rowsByOrder = await Orderrow.findAll({
             where: {
                 order_id: req.params.orderid
-            },
-            include: [{
-                model: Item,
-                require: true
-            }]
+            }
         })
         return res.json(rowsByOrder)
     }
@@ -27,6 +31,7 @@ orderRowRouter.get('/order/:orderid', async (req, res) => {
         res.json(exception)
     }
 })
+*/
 
 // ADD NEW ROW TO ORDER
 orderRowRouter.post('/', async (req, res) => {
