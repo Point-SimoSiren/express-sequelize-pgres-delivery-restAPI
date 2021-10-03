@@ -59,6 +59,7 @@ categoryRouter.delete('/:id', async (req, res) => {
 // ADMIN FEATURE: UPDATE PRODUCT CATEGORY
 categoryRouter.put('/:id', async (request, response) => {
 
+    try {
     const body = request.body
     const id = request.params.id
 
@@ -72,6 +73,11 @@ categoryRouter.put('/:id', async (request, response) => {
     })
 
     response.json(updated)
+
+    }
+        catch (ex) {
+        response.json(ex)
+}
 })
 
 module.exports = categoryRouter

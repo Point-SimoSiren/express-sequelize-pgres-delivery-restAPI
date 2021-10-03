@@ -1,3 +1,5 @@
+npm install --save-dev sequelize-cli
+
 npx sequelize-cli init -command provides nice starter structure.
 
 Create model with script:

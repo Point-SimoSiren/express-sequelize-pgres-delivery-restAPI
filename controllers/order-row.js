@@ -27,7 +27,6 @@ orderRowRouter.get('/order/:orderid', async (req, res) => {
         const [results, metadata] = await db.sequelize.query
             ("SELECT * FROM orderrow LEFT JOIN item ON item.item_id = orderrow.item_id WHERE  order_id = " + "'" + orderid + "'")
 
-        console.log(results)
         return res.json(results)
     }
     catch (exception) {
