@@ -50,7 +50,8 @@ itemRouter.post('/', async (request, response) => {
             active: body.active,
             manufacturer: body.manufacturer,
             description: body.description,
-            category: body.categoryId
+            category_id: body.category_id,
+            imagelink: body.imagelink
         })
 
         const savedItem = await newItem.save()

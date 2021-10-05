@@ -7,9 +7,6 @@ const jwt = require('jsonwebtoken')
 userRouter.post('/', async (request, response) => {
     try {
         const body = request.body
-        console.log("--------------------------")
-        console.log(body)
-        console.log("--------------------------")
 
         const saltRounds = 8
         const passwordHash = await bcrypt.hash(body.password, saltRounds)

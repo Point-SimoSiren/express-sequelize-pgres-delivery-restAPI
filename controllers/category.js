@@ -23,7 +23,7 @@ categoryRouter.get('/:id', async (request, response) => {
     }
 })
 
-// ADD NEW CATEGORY
+// ADMIN FEATURE: ADD NEW CATEGORY
 categoryRouter.post('/', async (request, response) => {
     const body = request.body
 
@@ -40,7 +40,7 @@ categoryRouter.post('/', async (request, response) => {
     }
 })
 
-// DELETE CATEGORY
+// ADMIN FEATURE: DELETE CATEGORY
 categoryRouter.delete('/:id', async (req, res) => {
 
     try {
